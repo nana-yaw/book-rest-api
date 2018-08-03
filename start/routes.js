@@ -41,4 +41,9 @@ Route.group(() => {
 
     return response.status(201).json(book);
   });
+
+  Route.get("books", async ({ response }) => {
+    let books = await Book.all();
+    return response.json(books);
+  });
 }).prefix("api/v1");
