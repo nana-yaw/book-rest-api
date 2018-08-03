@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 /*
 |--------------------------------------------------------------------------
@@ -13,8 +13,32 @@
 |
 */
 
-const Route = use('Route')
+const Route = use("Route");
+const Book = use("App/Models/Book");
 
-Route.get('/', ({ request }) => {
-  return { greeting: 'Hello world in JSON' }
-})
+// Route.get('/', ({ request }) => {
+//   return { greeting: 'Hello world in JSON' }
+// })
+
+Route.group(() => {
+  Route.post("books", async ({ request, response }) => {
+    const bookInfo = request.only([
+      "title",
+      "isbn",
+      "publisher_name",
+      "author_name",
+      "color"
+    ]);
+
+    const book = new Book();
+    book.title = bookInfo.title;
+    book.isbn = bookInfo.isbn;
+    book.publisher_name = bookInfo.publisher_name;
+    book.author_name = bookInfo.author_name;
+    book.color = bookInfo.color;
+
+    await book.save();
+
+    return response.status(201).json(book);
+  });
+}).prefix("api/v1");
