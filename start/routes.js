@@ -56,4 +56,9 @@ Route.group(() => {
     let books = await Book.all();
     return response.json(books);
   });
+
+  Route.get("books/:id", async ({ params, response }) => {
+    const book = await Book.find(params.id);
+    return response.json(book);
+  });
 }).prefix("api/v1");
