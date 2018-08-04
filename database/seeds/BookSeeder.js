@@ -20,6 +20,7 @@ class BookSeeder {
     let updated_at = Database.raw("NOW()");
 
     await Database.insert([
+      // https://gist.github.com/nanotaboada/6396437
       {
         isbn: 9781593275846,
         title: "Eloquent JavaScript, Second Edition",
@@ -94,10 +95,6 @@ class BookSeeder {
         updated_at
       }
     ]).into("books");
-    // https://gist.github.com/nanotaboada/6396437
-
-    // const books = await Factory.model("App/Models/Book").createMany(5);
-    // console.log(books);
   }
 }
 
