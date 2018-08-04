@@ -16,26 +16,36 @@
 const Route = use("Route");
 const Book = use("App/Models/Book");
 
-// Route.get('/', ({ request }) => {
-//   return { greeting: 'Hello world in JSON' }
-// })
+Route.get("/", ({ request }) => {
+  return { greeting: "Hello world in JSON" };
+});
 
 Route.group(() => {
   Route.post("books", async ({ request, response }) => {
+    // https://gist.github.com/nanotaboada/6396437
+
     const bookInfo = request.only([
-      "title",
       "isbn",
-      "publisher_name",
-      "author_name",
-      "color"
+      "title",
+      "subtitle",
+      "author",
+      "published",
+      "publisher",
+      "pages",
+      "description",
+      "website"
     ]);
 
     const book = new Book();
-    book.title = bookInfo.title;
     book.isbn = bookInfo.isbn;
-    book.publisher_name = bookInfo.publisher_name;
-    book.author_name = bookInfo.author_name;
-    book.color = bookInfo.color;
+    book.title = bookInfo.title;
+    book.subtitle = bookInfo.subtitle;
+    book.author = bookInfo.author;
+    book.published = bookInfo.published;
+    book.publisher = bookInfo.publisher;
+    book.pages = bookInfo.pages;
+    book.description = bookInfo.description;
+    book.website = bookInfo.website;
 
     await book.save();
 
