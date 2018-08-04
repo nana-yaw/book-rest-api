@@ -21,87 +21,18 @@ const Book = use("App/Models/Book");
 // });
 
 Route.group(() => {
-  //Implement handling of empty responses
-  Route.post("books", async ({ request, response }) => {
-    // https://gist.github.com/nanotaboada/6396437
+  //Create/save a new book.
+  Route.post("books", "BookController.store");
 
-    const bookInfo = request.only([
-      "isbn",
-      "title",
-      "subtitle",
-      "author",
-      "published",
-      "publisher",
-      "pages",
-      "description",
-      "website"
-    ]);
-
-    const book = new Book();
-    book.isbn = bookInfo.isbn;
-    book.title = bookInfo.title;
-    book.subtitle = bookInfo.subtitle;
-    book.author = bookInfo.author;
-    book.published = bookInfo.published;
-    book.publisher = bookInfo.publisher;
-    book.pages = bookInfo.pages;
-    book.description = bookInfo.description;
-    book.website = bookInfo.website;
-
-    await book.save();
-
-    return response.status(201).json(book);
-  });
-
-  //Show a list of all books.
+  //Show list of all books.
   Route.get("books", "BookController.index");
 
-  Route.get("books/:id", async ({ params, response }) => {
-    const book = await Book.find(params.id);
+  // Display a single book.
+  Route.get("books/:id", "BookController.show");
 
-    if (!book) {
-      const error = { message: "Requested book not found at this time!" };
-      return response.status(404).json(error);
-    }
+  // Update book details.
+  Route.put("books/:id", "BookController.update");
 
-    return response.json(book);
-  });
-
-  Route.put("books/:id", async ({ params, request, response }) => {
-    const bookInfo = request.only([
-      "isbn",
-      "title",
-      "subtitle",
-      "author",
-      "published",
-      "publisher",
-      "pages",
-      "description",
-      "website"
-    ]);
-    const book = await Book.find(params.id);
-    book.isbn = bookInfo.isbn;
-    book.title = bookInfo.title;
-    book.subtitle = bookInfo.subtitle;
-    book.author = bookInfo.author;
-    book.published = bookInfo.published;
-    book.publisher = bookInfo.publisher;
-    book.pages = bookInfo.pages;
-    book.description = bookInfo.description;
-    book.website = bookInfo.website;
-
-    await book.save();
-
-    return response.status(200).json(book);
-  });
-
-  Route.delete("books/:id", async ({ params, request, response }) => {
-    const book = await Book.find(params.id);
-    if (!book) {
-      const error = { message: "Requested book not found at this time!" };
-      return response.status(404).json(error);
-    }
-    await book.delete();
-    return response.status(200).json([{ message: "Book removed!" }]);
-  });
+  // Delete a book with id.
+  Route.delete("books/:id", "BookController.destroy");
 }).prefix("api/v1");
