@@ -53,16 +53,8 @@ Route.group(() => {
     return response.status(201).json(book);
   });
 
-  Route.get("books", async ({ response }) => {
-    let books = await Book.all();
-
-    if (!books) {
-      const error = { message: "No books found at this time!" };
-      return response.status(404).json(error);
-    }
-
-    return response.json(books);
-  });
+  //Show a list of all books.
+  Route.get("books", "BookController.index");
 
   Route.get("books/:id", async ({ params, response }) => {
     const book = await Book.find(params.id);
