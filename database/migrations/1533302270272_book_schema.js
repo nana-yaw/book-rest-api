@@ -2,8 +2,6 @@
 
 const Schema = use("Schema");
 
-// https://gist.github.com/nanotaboada/6396437
-
 class BookSchema extends Schema {
   up() {
     this.create("books", table => {
