@@ -20,12 +20,15 @@ Route.get("/", ({ request }) => {
 });
 
 Route.group(() => {
-  // Route.post('login', 'AuthController.login')
+  Route.post("login", "AuthController.login");
 
   Route.post("register", "UserController.add");
 }).prefix("api/v1");
 
 Route.group(() => {
+  //Logout a user
+  Route.post("logout", "AuthController.logout");
+
   //Create/save a new book.
   Route.post("books", "BookController.store");
 
