@@ -28,6 +28,17 @@ class UserController {
     const user = await User.create(data);
     return response.status(201).json(user);
   }
+
+  async getUser({ auth, response }) {
+    try {
+      const { email, username } = await auth.getUser();
+      let user = [{ email: email, username: username }];
+      return user;
+    } catch (error) {
+      error = { message: "Missing or invalid jwt token" };
+      return error;
+    }
+  }
 }
 
 module.exports = UserController;

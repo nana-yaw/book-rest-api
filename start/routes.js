@@ -19,15 +19,20 @@ Route.get("/", ({ request }) => {
   return { greeting: "Hello world in JSON" };
 });
 
+//Public routes
 Route.group(() => {
   Route.post("login", "AuthController.login");
 
   Route.post("register", "UserController.add");
 }).prefix("api/v1");
 
+//Protected routes
 Route.group(() => {
   //Logout a user
   Route.post("logout", "AuthController.logout");
+
+  // Get authenticated user
+  Route.get("user", "UserController.getUser");
 
   //Create/save a new book.
   Route.post("books", "BookController.store");
