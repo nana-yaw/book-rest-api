@@ -16,9 +16,9 @@
 const Route = use("Route");
 const Book = use("App/Models/Book");
 
-// Route.get("/", ({ request }) => {
-//   return { greeting: "Hello world in JSON" };
-// });
+Route.get("/", ({ request }) => {
+  return { greeting: "Hello world in JSON" };
+});
 
 Route.group(() => {
   //Create/save a new book.
