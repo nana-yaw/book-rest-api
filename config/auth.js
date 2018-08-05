@@ -1,6 +1,8 @@
-'use strict'
+"use strict";
 
-const Env = use('Env')
+const Env = use("Env");
+const Url = require("url-parse");
+const APP_KEY = new Url(Env.get("APP_KEY"));
 
 module.exports = {
   /*
@@ -15,7 +17,7 @@ module.exports = {
   | Available Serializers - lucid, database
   |
   */
-  authenticator: 'jwt',
+  authenticator: "jwt",
 
   /*
   |--------------------------------------------------------------------------
@@ -27,11 +29,11 @@ module.exports = {
   |
   */
   session: {
-    serializer: 'lucid',
-    model: 'App/Models/User',
-    scheme: 'session',
-    uid: 'email',
-    password: 'password'
+    serializer: "lucid",
+    model: "App/Models/User",
+    scheme: "session",
+    uid: "email",
+    password: "password"
   },
 
   /*
@@ -48,11 +50,11 @@ module.exports = {
   |
   */
   basic: {
-    serializer: 'lucid',
-    model: 'App/Models/User',
-    scheme: 'basic',
-    uid: 'email',
-    password: 'password'
+    serializer: "lucid",
+    model: "App/Models/User",
+    scheme: "basic",
+    uid: "email",
+    password: "password"
   },
 
   /*
@@ -64,14 +66,27 @@ module.exports = {
   | via HTTP `Authorization` header.
   |
   */
+  // APP_KEY for Local Developement
+  // jwt: {
+  //   serializer: 'lucid',
+  //   model: 'App/Models/User',
+  //   scheme: 'jwt',
+  //   uid: 'email',
+  //   password: 'password',
+  //   options: {
+  //     secret: Env.get('APP_KEY')
+  //   }
+  // }
+
+  // APP_KEY for Heroku Deployment
   jwt: {
-    serializer: 'lucid',
-    model: 'App/Models/User',
-    scheme: 'jwt',
-    uid: 'email',
-    password: 'password',
+    serializer: "lucid",
+    model: "App/Models/User",
+    scheme: "jwt",
+    uid: "email",
+    password: "password",
     options: {
-      secret: Env.get('APP_KEY')
+      secret: Env.get("APP_KEY", APP_KEY)
     }
   }
-}
+};
