@@ -28,11 +28,14 @@ Route.group(() => {
 
 //Protected routes
 Route.group(() => {
+  //Refresh a user token
+  Route.post("token/refresh", "AuthController.refreshToken");
+
   //Logout a user
   Route.post("logout", "AuthController.logout");
 
   // Get authenticated user
-  Route.get("user", "UserController.getUser");
+  Route.get("user/me", "UserController.getUser");
 
   //Create/save a new book.
   Route.post("books", "BookController.store");

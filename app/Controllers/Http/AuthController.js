@@ -28,28 +28,28 @@ class AuthController {
     }
   }
 
-  // async refreshToken({ request, response, auth }) {
-  //   const rules = {
-  //     refresh_token: "required"
-  //   };
+  async refreshToken({ request, response, auth }) {
+    const rules = {
+      refresh_token: "required"
+    };
 
-  //   const { refresh_token } = request.only(["refresh_token"]);
+    const { refresh_token } = request.only(["refresh_token"]);
 
-  //   const validation = await validate({ refresh_token }, rules);
+    const validation = await validate({ refresh_token }, rules);
 
-  //   if (!validation.fails()) {
-  //     try {
-  //       let output = await auth
-  //         .newRefreshToken()
-  //         .generateForRefreshToken(refresh_token);
-  //       return response.status(200).json(output);
-  //     } catch (err) {
-  //       response.status(401).send({ error: "Invalid refresh token" });
-  //     }
-  //   } else {
-  //     response.status(401).send(validation.messages());
-  //   }
-  // }
+    if (!validation.fails()) {
+      try {
+        let output = await auth
+          .newRefreshToken()
+          .generateForRefreshToken(refresh_token);
+        return response.status(200).json(output);
+      } catch (err) {
+        response.status(401).send({ error: "Invalid refresh token" });
+      }
+    } else {
+      response.status(401).send(validation.messages());
+    }
+  }
 
   //User Token as Authorization Header and parse refresh token {refresh_token:refresh_token}
   async logout({ request, response, auth }) {
