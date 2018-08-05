@@ -51,6 +51,7 @@ class AuthController {
   //   }
   // }
 
+  //User Token as Authorization Header and parse refresh token {refresh_token:refresh_token}
   async logout({ request, response, auth }) {
     const rules = {
       refresh_token: "required"
@@ -79,22 +80,5 @@ class AuthController {
     }
   }
 }
-
-// class AuthController {
-//   async login({ auth, request, response }) {
-//     const { username, password } = request.all();
-//     try {
-//       let jwtToken = await auth.attempt(username, password);
-//       if (!jwtToken) {
-//         let error = { message: "Invalid credentials" };
-//         return response.status(401).json(error);
-//       }
-//       let output = [{ message: "Logged in!" }, { token: jwtToken }];
-//       return response.status(200).json(output);
-//     } catch (e) {
-
-//     }
-//   }
-// }
 
 module.exports = AuthController;
