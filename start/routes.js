@@ -14,11 +14,16 @@
 */
 
 const Route = use("Route");
-const Book = use("App/Models/Book");
 
 Route.get("/", ({ request }) => {
   return { greeting: "Hello world in JSON" };
 });
+
+Route.group(() => {
+  // Route.post('login', 'AuthController.login')
+
+  Route.post("register", "UserController.add");
+}).prefix("api/v1");
 
 Route.group(() => {
   //Create/save a new book.
@@ -35,4 +40,6 @@ Route.group(() => {
 
   // Delete a book with id.
   Route.delete("books/:id", "BookController.destroy");
-}).prefix("api/v1");
+})
+  .prefix("api/v1")
+  .middleware("auth");
