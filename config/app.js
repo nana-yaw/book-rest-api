@@ -1,9 +1,8 @@
-'use strict'
+"use strict";
 
-const Env = use('Env')
+const Env = use("Env");
 
 module.exports = {
-  
   /*
   |--------------------------------------------------------------------------
   | Application Name
@@ -15,8 +14,8 @@ module.exports = {
   |
   */
 
-  name: Env.get('APP_NAME', 'AdonisJs'),
-  
+  name: Env.get("APP_NAME", "AdonisJs"),
+
   /*
   |--------------------------------------------------------------------------
   | App Key
@@ -26,7 +25,7 @@ module.exports = {
   | to encrypted cookies, sessions and other sensitive data.
   |
   */
-  appKey: Env.get('APP_KEY'),
+  appKey: Env.get("APP_KEY", "8gY2a30CXzOiJfED9AWP9h0dtt6OjaX3"),
 
   http: {
     /*
@@ -79,7 +78,7 @@ module.exports = {
     | in request url.
     |
     */
-    jsonpCallback: 'callback',
+    jsonpCallback: "callback",
 
     /*
     |--------------------------------------------------------------------------
@@ -109,7 +108,7 @@ module.exports = {
     | ignore, deny, allow
     |
     */
-    dotfiles: 'ignore',
+    dotfiles: "ignore",
 
     /*
     |--------------------------------------------------------------------------
@@ -146,7 +145,7 @@ module.exports = {
     | file, database
     |
     */
-    loader: 'file',
+    loader: "file",
 
     /*
     |--------------------------------------------------------------------------
@@ -158,7 +157,7 @@ module.exports = {
     | based on HTTP headers/query string.
     |
     */
-    locale: 'en'
+    locale: "en"
   },
 
   logger: {
@@ -173,7 +172,7 @@ module.exports = {
     | Available drivers are: `file` and `console`.
     |
     */
-    transport: 'console',
+    transport: "console",
 
     /*
     |--------------------------------------------------------------------------
@@ -185,9 +184,9 @@ module.exports = {
     |
     */
     console: {
-      driver: 'console',
-      name: 'adonis-app',
-      level: 'info'
+      driver: "console",
+      name: "adonis-app",
+      level: "info"
     },
 
     /*
@@ -202,10 +201,10 @@ module.exports = {
     |
     */
     file: {
-      driver: 'file',
-      name: 'adonis-app',
-      filename: 'adonis.log',
-      level: 'info'
+      driver: "file",
+      name: "adonis-app",
+      filename: "adonis.log",
+      level: "info"
     }
   }
-}
+};
