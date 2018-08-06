@@ -7,6 +7,34 @@ const Book = use("App/Models/Book");
  */
 class BookController {
   /**
+   * @swagger
+   * /books:
+   *   get:
+   *     tags:
+   *       - Book
+   *     summary: List All Books API endpoint
+   *     parameters:
+   *       - name: token
+   *         description: Refresh token generated when user logged in
+   *         in: query
+   *         required: true
+   *         type: string
+   *     responses:
+   *       200:
+   *         description: Shows an array book objects
+   *         example:
+   *           message: Array of book objects
+   *       401:
+   *         description: Unauthorized action
+   *         example:
+   *           message: Unauthorized
+   *       404:
+   *         description: No records found!
+   *         example:
+   *           message: Not Found
+   */
+
+  /**
    * Show a list of all books.
    * GET books
    */
@@ -20,6 +48,69 @@ class BookController {
 
     return response.status(200).json(books);
   }
+
+  /**
+   * @swagger
+   * /books:
+   *   post:
+   *     tags:
+   *       - Book
+   *     summary: Add a book API endpoint
+   *     parameters:
+   *       - name: isbn
+   *         description: Unique Book ISBN
+   *         in: query
+   *         required: true
+   *         type: uint
+   *       - name: title
+   *         description: Book Title
+   *         in: query
+   *         required: true
+   *         type: string
+   *       - name: subtitle
+   *         description: Book Subtitle
+   *         in: query
+   *         required: false
+   *         type: string
+   *       - name: author
+   *         description: Book Author
+   *         in: query
+   *         required: true
+   *         type: string
+   *       - name: published
+   *         description: Book published timestamp
+   *         in: query
+   *         required: false
+   *         type: string
+   *       - name: publisher
+   *         description: Book publisher name
+   *         in: query
+   *         required: false
+   *         type: string
+   *       - name: pages
+   *         description: Count of book pages
+   *         in: query
+   *         required: true
+   *         type: string
+   *       - name: description
+   *         description: Book description
+   *         in: query
+   *         required: false
+   *         type: string
+   *     responses:
+   *       200:
+   *         description: Book successfully added
+   *         example:
+   *           message: Book object
+   *       401:
+   *         description: Unauthorized action
+   *         example:
+   *           message: Unauthorized
+   *       404:
+   *         description: No records found!
+   *         example:
+   *           message: Not Found
+   */
 
   /**
    * Create/save a new book.
@@ -57,8 +148,36 @@ class BookController {
   }
 
   /**
+   * @swagger
+   * /books/{id}:
+   *   get:
+   *     tags:
+   *       - Book
+   *     summary: Get a book's info API endpoint
+   *     parameters:
+   *       - name: id
+   *         description: Book ID
+   *         in: query
+   *         required: true
+   *         type: string
+   *     responses:
+   *       200:
+   *         description: Shows a book object
+   *         example:
+   *           message: book object
+   *       401:
+   *         description: Unauthorized action
+   *         example:
+   *           message: Unauthorized
+   *       404:
+   *         description: No records found!
+   *         example:
+   *           message: Not Found!
+   */
+
+  /**
    * Display a single book.
-   * GET books/:id
+   * GET books/id
    */
   async show({ params, response }) {
     const book = await Book.find(params.id);
@@ -72,8 +191,71 @@ class BookController {
   }
 
   /**
+   * @swagger
+   * /books/{id}:
+   *   put:
+   *     tags:
+   *       - Book
+   *     summary: Update book details API endpoint
+   *     parameters:
+   *       - name: isbn
+   *         description: Unique Book ISBN
+   *         in: query
+   *         required: true
+   *         type: uint
+   *       - name: title
+   *         description: Book Title
+   *         in: query
+   *         required: true
+   *         type: string
+   *       - name: subtitle
+   *         description: Book Subtitle
+   *         in: query
+   *         required: false
+   *         type: string
+   *       - name: author
+   *         description: Book Author
+   *         in: query
+   *         required: true
+   *         type: string
+   *       - name: published
+   *         description: Book published timestamp
+   *         in: query
+   *         required: false
+   *         type: string
+   *       - name: publisher
+   *         description: Book publisher name
+   *         in: query
+   *         required: false
+   *         type: string
+   *       - name: pages
+   *         description: Count of book pages
+   *         in: query
+   *         required: true
+   *         type: string
+   *       - name: description
+   *         description: Book description
+   *         in: query
+   *         required: false
+   *         type: string
+   *     responses:
+   *       200:
+   *         description: Book successfully updated
+   *         example:
+   *           message: Book object
+   *       401:
+   *         description: Unauthorized action
+   *         example:
+   *           message: Unauthorized
+   *       404:
+   *         description: No records found!
+   *         example:
+   *           message: Not Found!
+   */
+
+  /**
    * Update book details.
-   * PUT or PATCH books/:id
+   * PUT or PATCH books/id
    */
   async update({ params, request, response }) {
     const bookInfo = request.only([
@@ -104,8 +286,36 @@ class BookController {
   }
 
   /**
+   * @swagger
+   * /books/{id}:
+   *   delete:
+   *     tags:
+   *       - Book
+   *     summary: Delete a book API endpoint
+   *     parameters:
+   *       - name: id
+   *         description: Book ID
+   *         in: query
+   *         required: true
+   *         type: string
+   *     responses:
+   *       200:
+   *         description: Shows book deleted message
+   *         example:
+   *           message: book removed!
+   *       401:
+   *         description: Unauthorized action
+   *         example:
+   *           message: Unauthorized!
+   *       404:
+   *         description: No records found!
+   *         example:
+   *           message: Not Found!
+   */
+
+  /**
    * Delete a book with id.
-   * DELETE books/:id
+   * DELETE books/id
    */
   async destroy({ params, response }) {
     const book = await Book.find(params.id);

@@ -5,6 +5,34 @@ const Encryption = use("Encryption");
 const Token = use("App/Models/Token");
 
 class AuthController {
+  /**
+   * @swagger
+   * /auth/login:
+   *   post:
+   *     tags:
+   *       - Auth
+   *     summary: Log in user API endpoint
+   *     parameters:
+   *       - name: email
+   *         description: Registered user email
+   *         in: query
+   *         required: true
+   *         type: string
+   *       - name: password
+   *         description: User password
+   *         in: query
+   *         required: true
+   *         type: string
+   *     responses:
+   *       200:
+   *         description: Token
+   *         example:
+   *           message: Bearer token
+   *       401:
+   *         description: Unauthorized action
+   *         example:
+   *           message: Unauthorized
+   */
   async login({ request, response, auth }) {
     const rules = {
       email: "required|email",
@@ -28,6 +56,30 @@ class AuthController {
     }
   }
 
+  /**
+   * @swagger
+   * /auth/token/refresh:
+   *   post:
+   *     tags:
+   *       - Auth
+   *     summary: Refresh user bearer token API endpoint
+   *     parameters:
+   *       - name: refresh_token
+   *         description: Current user refresh token
+   *         in: query
+   *         required: true
+   *         type: string
+   *     responses:
+   *       200:
+   *         description: New bearer token
+   *         example:
+   *           message: Bearer token
+   *       401:
+   *         description: Unauthorized action
+   *         example:
+   *           message: Unauthorized
+   */
+
   async refreshToken({ request, response, auth }) {
     const rules = {
       refresh_token: "required"
@@ -50,6 +102,30 @@ class AuthController {
       response.status(401).send(validation.messages());
     }
   }
+
+  /**
+   * @swagger
+   * /auth/logout:
+   *   post:
+   *     tags:
+   *       - Auth
+   *     summary: User logout API endpoint
+   *     parameters:
+   *       - name: refresh_token
+   *         description: Current user refresh token
+   *         in: query
+   *         required: true
+   *         type: string
+   *     responses:
+   *       200:
+   *         description: Sign out message
+   *         example:
+   *           message: Logged out
+   *       401:
+   *         description: Unauthorized action
+   *         example:
+   *           message: Unauthorized!
+   */
 
   //User Token as Authorization Header and parse refresh token {refresh_token:refresh_token}
   async logout({ request, response, auth }) {

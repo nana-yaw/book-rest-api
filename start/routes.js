@@ -14,25 +14,24 @@
 */
 
 const Route = use("Route");
+const Helpers = use("Helpers");
 
-Route.get("/", ({ request }) => {
-  return { greeting: "Hello world in JSON" };
-});
+Route.get("/", "TestController.hello");
 
 //Public routes
 Route.group(() => {
-  Route.post("login", "AuthController.login");
+  Route.post("auth/login", "AuthController.login");
 
-  Route.post("register", "UserController.add");
+  Route.post("auth/register", "UserController.add");
 }).prefix("api/v1");
 
 //Protected routes
 Route.group(() => {
   //Refresh a user token
-  Route.post("token/refresh", "AuthController.refreshToken");
+  Route.post("auth/token/refresh", "AuthController.refreshToken");
 
   //Logout a user
-  Route.post("logout", "AuthController.logout");
+  Route.post("auth/logout", "AuthController.logout");
 
   // Get authenticated user
   Route.get("user/me", "UserController.getUser");
