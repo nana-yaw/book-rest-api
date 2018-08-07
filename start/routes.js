@@ -14,9 +14,10 @@
 */
 
 const Route = use("Route");
-const Helpers = use("Helpers");
 
-Route.get("/", "TestController.hello");
+Route.get("/", ({ response }) => {
+  return response.redirect("/docs");
+});
 
 //Public routes
 Route.group(() => {
