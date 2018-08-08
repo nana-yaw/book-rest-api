@@ -1,6 +1,6 @@
-#RESTful API For Book Collection using AdonisJS Framework
+# RESTful API For Book Collection using AdonisJS Framework
 
-##Targets
+## Targets
 
 - Develop an API backend of that holds data of books and their authors
 - With JWT security
